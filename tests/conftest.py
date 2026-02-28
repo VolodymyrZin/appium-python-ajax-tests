@@ -21,12 +21,21 @@ def login() -> None:
     IntroPage().click_login_button()
     LoginPage().login()
 
-
 @pytest.fixture(scope='session')
 def appium_service():
-    Appium.start()
+    # Перевіряємо, що Appium запущений
+    if not Appium.is_running():
+        raise RuntimeError(
+            f"Appium не запущений на {Appium.HOST}:{Appium.PORT}. "
+            "Запусти Appium вручну: appium --base-path /wd/hub"
+        )
     yield
-    Appium.stop()
+
+# @pytest.fixture(scope='session')
+# def appium_service():
+#     Appium.start()
+#     yield
+#     Appium.stop()
 
 
 @pytest.fixture(scope='session', autouse=True)

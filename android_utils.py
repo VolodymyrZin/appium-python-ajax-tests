@@ -1,11 +1,13 @@
 import os
-from appium.options.android import UiAutomator2Options
 import subprocess
+from appium.options.android import UiAutomator2Options
 
-# беремо UDID пристрою з змінної оточення
+# Беремо UDID з змінної оточення
 udid = os.getenv("DEVICE_UDID")
 if not udid:
-    raise EnvironmentError('No DEVICE_UDID provided. Set DEVICE_UDID=emulator-5554 (або інший UDID вашого пристрою)')
+    raise EnvironmentError(
+        "No DEVICE_UDID provided. Set DEVICE_UDID=emulator-5554 або інший UDID вашого пристрою"
+    )
 
 def get_driver_options() -> UiAutomator2Options:
     options = UiAutomator2Options()
@@ -16,11 +18,12 @@ def get_driver_options() -> UiAutomator2Options:
     options.disable_window_animation = True
     return options
 
-def reset_app(package) -> None:
-    # Використовуємо ADB через переданий UDID
+def reset_app(package: str) -> None:
+    # Використовуємо ADB через UDID
     subprocess.run(
         ['adb', '-s', udid, 'shell', 'pm', 'clear', package],
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
     )
 
 # import subprocess
