@@ -29,7 +29,12 @@ class Page:
 
     @staticmethod
     def send_keys(element: WebElement, value: str) -> None:
-        element.clear().send_keys(value)
+        element.clear()  # спочатку очищаємо
+        element.send_keys(value)  # потім вводимо текст
+
+    # @staticmethod
+    # def send_keys(element: WebElement, value: str) -> None:
+    #     element.clear().send_keys(value)
 
     @staticmethod
     def _get_resource_id(element_id: str) -> str:
