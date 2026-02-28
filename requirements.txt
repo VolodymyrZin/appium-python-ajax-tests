@@ -5,3 +5,4 @@ urllib3==2.2.1
 allure-pytest
 colorama
 python-dotenv
+requests
