@@ -29,8 +29,12 @@ class Page:
 
     @staticmethod
     def send_keys(element: WebElement, value: str) -> None:
-        element.clear()  # спочатку очищаємо
-        element.send_keys(value)  # потім вводимо текст
+        element.clear()  # очищаємо поле
+        try:
+            element.send_keys(value)
+        except Exception:
+            # fallback для Docker / headless
+            element.set_value(value)
 
     # @staticmethod
     # def send_keys(element: WebElement, value: str) -> None:
