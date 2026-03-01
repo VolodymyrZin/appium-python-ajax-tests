@@ -11,7 +11,10 @@ if not udid:
 
 def get_driver_options() -> UiAutomator2Options:
     options = UiAutomator2Options()
-    options.no_reset = True
+
+    options.no_reset = False
+    options.full_reset = False
+    # options.no_reset = True
     options.udid = udid
     options.clear_device_logs_on_start = True
     options.auto_grant_permissions = True
