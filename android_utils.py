@@ -12,6 +12,10 @@ if not udid:
 def get_driver_options() -> UiAutomator2Options:
     options = UiAutomator2Options()
 
+    options.new_command_timeout = 120
+    options.unicode_keyboard = True
+    options.reset_keyboard = True
+
     options.no_reset = False
     options.full_reset = False
     # options.no_reset = True

@@ -37,17 +37,30 @@ def appium_service():
 #     yield
 #     Appium.stop()
 
-
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(autouse=True)
 def driver(appium_service, request: pytest.FixtureRequest):
+
+    # Старт нової Appium сесії ПЕРЕД КОЖНИМ тестом
     Driver.start(get_driver_options())
+
     if request.config.option.login:
         login()
     else:
-        Driver.terminate_app()
         Driver.launch_app()
     yield
+    # Повністю закриваємо сесію ПІСЛЯ кожного тесту
     Driver.finish()
+
+# @pytest.fixture(scope='session', autouse=True)
+# def driver(appium_service, request: pytest.FixtureRequest):
+#     Driver.start(get_driver_options())
+#     if request.config.option.login:
+#         login()
+#     else:
+#         Driver.terminate_app()
+#         Driver.launch_app()
+#     yield
+#     Driver.finish()
 
 @pytest.fixture(autouse=True)
 def handle_permissions():
